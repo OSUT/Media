@@ -43,7 +43,7 @@ public class Medie extends Game {
 	}
 	
 	@Override
-	public void render() {
+	public void render() {		
 		batch.setProjectionMatrix(camera.combined);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
