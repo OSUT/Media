@@ -2,7 +2,6 @@ package com.me.medie;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class AverageScreen implements Screen {
@@ -30,7 +28,7 @@ public class AverageScreen implements Screen {
 	Medie main;
 	public Table tableMain;
 	
-	public AverageScreen(Medie main){
+	public AverageScreen(Medie main, String sectie, int an){
 		this.main = main;
 		Texture.setEnforcePotImages(false);
 		

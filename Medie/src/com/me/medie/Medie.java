@@ -31,7 +31,7 @@ public class Medie extends Game {
 		skDefault = new Skin(Gdx.files.internal("data/default-skin/uiskin.json"));
 		skin = skDefault;
 		
-		this.setScreen(new SplashScreen(this));
+		this.setScreen(new FacultateScreen(this));
 	}
 	
 	@Override

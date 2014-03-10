@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -39,7 +38,7 @@ public class SplashScreen implements Screen {
 		tbtStart.addListener(new ClickListener(){
 			@Override
 			public boolean touchDown(InputEvent e, float x, float y, int pointer, int button){
-				main.setScreen(new AverageScreen(main));
+				main.setScreen(new FacultateScreen(main));
 				
 				return true;
 			}
