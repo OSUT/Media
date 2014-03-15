@@ -25,6 +25,7 @@ public class FacultateScreen implements Screen {
 	int nrFacultati;
 	String[] strFacultati;
 	String[][] strSectii;
+	String filepath;//calea catre fisierul sectiei cautate, cu care se creeaza o instanta a AverageScreen
 	
 	public FacultateScreen(final Medie main){
 		this.main = main;
@@ -34,7 +35,7 @@ public class FacultateScreen implements Screen {
 		table = new Table();
 		table.setSize(main.SW, main.SH);
 		table.top();
-		
+
 		Gdx.input.setInputProcessor(stage);
 		stage.clear();
 		
@@ -114,7 +115,8 @@ public class FacultateScreen implements Screen {
 		
 		tbContinue.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent e, float x, float y, int pointer, int button){
-				main.setScreen(new AverageScreen(main, sbSectii.getSelection(), Integer.parseInt(sbAn.getSelection())));
+				main.setScreen(new AverageScreen(main, sbFacultati.getSelection(), 
+								sbSectii.getSelection(), Integer.parseInt(sbAn.getSelection())));
 				
 				return true;
 			}
