@@ -1,7 +1,5 @@
 package com.me.medie;
 
-import java.util.Arrays;
-
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

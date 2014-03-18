@@ -2,6 +2,8 @@ package com.me.medie;
 
 import java.io.IOException;
 
+import org.omg.CORBA.portable.InputStream;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Application.ApplicationType;
@@ -44,32 +46,36 @@ public class AverageScreen implements Screen {
 		Table tableFields = new Table(main.skin);
 		tableFields.setSize(main.SW, main.SH);
 
-		String path = System.getProperty("user.dir");
-		
+		FileHandle fh = Gdx.files.internal("data/studii/Automatica si Calculatoare/Automatica.xls");
+		Gdx.app.log("hello", "0:" + fh.path());
+		Gdx.app.log("hello", "exists: " + Boolean.toString(fh.exists()));
+
 		Workbook wbPlan = null;
 	
-			if(Gdx.app.getType() == ApplicationType.Desktop)
-				path = "/bin/data/studii/"+strFacultate+"/"+strSectie+".xls";
-			else
-				path = "/data/studii/"+strFacultate+"/"+strSectie+".xls";
+		if(Gdx.app.getType() == ApplicationType.Desktop)
+			fh = new FileHandle(System.getProperty("user.dir") + "/bin/data/studii/"+strFacultate+"/"+strSectie+".xls");
+		else
+			fh = Gdx.files.internal("data/studii/"+strFacultate+"/"+strSectie+".xls");
 			
-			System.out.println(path);
+		try {
+			wbPlan = Workbook.getWorkbook(fh.read());
+		} catch (BiffException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
-			try {
-				wbPlan = Workbook.getWorkbook(new FileHandle(path).file());
-			} catch (BiffException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+		Gdx.app.log("hello", "nr. sheets: " + Integer.toString(wbPlan.getNumberOfSheets()));
 			
 		Sheet shPlan = wbPlan.getSheet(0);//index incepe la 0
 		
 		Cell[] cellsMaterii = shPlan.getColumn(0);
 		
 		nrFields = cellsMaterii.length;
+		
+		Gdx.app.log("hello", Integer.toString(nrFields));
 		
 		ponderi = new double[nrFields];
 		
@@ -78,10 +84,6 @@ public class AverageScreen implements Screen {
 		for(int i = nrFields - 1;i >= 0;i--)
 			if(cellsMaterii[i].getContents().isEmpty() || cellsCredite[i].getContents().isEmpty())
 				nrFields--;
-		
-		System.out.println(nrFields);
-		System.out.println(cellsMaterii[nrFields-1].getContents());
-		System.out.println(cellsCredite[nrFields-1].getContents());
 		
 		double sumacredite = 0;
 		

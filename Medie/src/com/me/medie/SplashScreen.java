@@ -28,7 +28,6 @@ public class SplashScreen implements Screen {
 		
 		texBackground = new Texture(Gdx.files.internal("data/background.png"));
 		imBackground = new Image(texBackground);
-		float ratio = imBackground.getWidth() / imBackground.getHeight();
 		imBackground.setWidth(main.SW);
 		imBackground.setHeight(main.SH);
 		stage.addActor(imBackground);
