@@ -2,19 +2,19 @@ package com.me.medie;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SplashScreen implements Screen {
-	Texture texBackground;
-	Image imBackground;
-	TextButton tbtStart;
 	Stage stage;
+	Table table;
 	
 	Medie main;
 	
@@ -26,14 +26,10 @@ public class SplashScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 		
-		texBackground = new Texture(Gdx.files.internal("data/background.png"));
-		imBackground = new Image(texBackground);
-		imBackground.setWidth(main.SW);
-		imBackground.setHeight(main.SH);
-		stage.addActor(imBackground);
+		table = new Table(main.skin);
+		table.add(new Image(new Texture(Gdx.files.internal("data/background.png")))).height(main.SH / 3).row();
 		
-		tbtStart = new TextButton("Start", main.skin);
-		tbtStart.setPosition(main.SW / 2 - tbtStart.getWidth() / 2, 0);
+		TextButton tbtStart = new TextButton("Start", main.skin);
 		tbtStart.addListener(new ClickListener(){
 			@Override
 			public boolean touchDown(InputEvent e, float x, float y, int pointer, int button){
@@ -43,12 +39,23 @@ public class SplashScreen implements Screen {
 			}
 		});
 		
-		stage.addActor(tbtStart);
+		table.add().height(main.SH / 3).row();
+		
+		table.add(tbtStart).row();
+		
+		table.setPosition(0, 0);
+		table.setSize(main.SW, main.SH);
+		
+		stage.addActor(table);
 	}
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		if(Gdx.input.isKeyPressed(Keys.BACK))
+			Gdx.app.exit();
+		
+		stage.act();
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		main.batch.begin();
 		stage.draw();

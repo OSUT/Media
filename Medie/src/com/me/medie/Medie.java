@@ -2,6 +2,7 @@ package com.me.medie;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class Medie extends Game {
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
-	Skin skHoloLight, skHoloDark, skDefault, skin;
+	private Skin skHoloDark;
+	public Skin skin;
 	int SW, SH;
 	
 	@Override
@@ -26,12 +28,17 @@ public class Medie extends Game {
 		camera.update();
 		batch = new SpriteBatch();
 		
-		skHoloDark = new Skin(Gdx.files.internal("data/HoloSkin/Holo-dark-hdpi.json"));
-		skHoloLight = new Skin(Gdx.files.internal("data/HoloSkin/Holo-light-hdpi.json"));
-		skDefault = new Skin(Gdx.files.internal("data/default-skin/uiskin.json"));
+		//de revazut
+		if(SH >= 480)
+			skHoloDark = new Skin(Gdx.files.internal("data/HoloSkin/Holo-dark-hdpi.json"));
+		else
+			skHoloDark = new Skin(Gdx.files.internal("data/HoloSkin/Holo-dark-ldpi.json"));
+			
 		skin = skHoloDark;
 		
-		this.setScreen(new FacultateScreen(this));
+		Gdx.input.setCatchBackKey(true);
+		
+		this.setScreen(new SplashScreen(this));
 	}
 	
 	@Override
@@ -39,11 +46,10 @@ public class Medie extends Game {
 		batch.dispose();
 		skin.dispose();
 		skHoloDark.dispose();
-		skHoloLight.dispose();
 	}
 	
 	@Override
-	public void render() {		
+	public void render() {	
 		batch.setProjectionMatrix(camera.combined);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		

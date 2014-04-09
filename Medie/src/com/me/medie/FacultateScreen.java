@@ -1,6 +1,7 @@
 package com.me.medie;
 
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
@@ -106,7 +107,7 @@ public class FacultateScreen implements Screen {
 		table.add(sbAn);
 		table.row();
 		
-		TextButton tbContinue = new TextButton("Continue", main.skin);
+		TextButton tbContinue = new TextButton("Continua", main.skin);
 		table.add().height(tbContinue.getHeight());
 		table.row();
 		table.add(tbContinue);
@@ -126,16 +127,21 @@ public class FacultateScreen implements Screen {
 	void updateSectii(){
 		int selectedFac = sbFacultati.getSelectionIndex();
 		
-		String[] toenter = new String[strSectii[selectedFac].length];
+		String[] strtoenter = new String[strSectii[selectedFac].length];
 		for(int i = 0;i < strSectii[selectedFac].length;i++){
-			toenter[i] = strSectii[selectedFac][i];
+			strtoenter[i] = strSectii[selectedFac][i];
 		}
-		sbSectii.setItems(toenter);
+		sbSectii.setItems(strtoenter);
 	}
 
 	@Override
 	public void render(float delta) {
 		stage.act(delta);
+
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		
+		if(Gdx.input.isKeyPressed(Keys.BACK))
+			main.setScreen(new SplashScreen(main));
 		
 		main.batch.begin();
 		stage.draw();
@@ -176,7 +182,7 @@ public class FacultateScreen implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
+		stage.dispose();
 	}
 
 }

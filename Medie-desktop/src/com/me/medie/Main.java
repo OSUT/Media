@@ -8,8 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Medie";
 		cfg.useGL20 = true;
-		cfg.width = 400;
-		cfg.height = 400;
+		cfg.width = 600;
+		cfg.height = 480;
 		
 		new LwjglApplication(new Medie(), cfg);
 	}
